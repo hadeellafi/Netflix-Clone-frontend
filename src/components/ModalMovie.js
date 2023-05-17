@@ -15,7 +15,7 @@ function ModalMovie(props) {
   };
 
   const addFavorite = (item) => {
-    const serverURL = "http://localhost:3005/getMovies";
+    const serverURL = `${process.env.REACT_APP_serverURL}/getMovies`;
     const data = { ...item, comment }; // Include the comment in the data to be sent
     axios.post(serverURL, data)
       .then(response => {

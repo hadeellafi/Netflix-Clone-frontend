@@ -3,7 +3,7 @@ import MoviesList from "./MoviesList";
 function Home() {
     const [trendingArr, setTrendingArr] = useState([])
     const getTrending = () => {
-        const serverURL = "http://localhost:3005/trending";
+        const serverURL = `${process.env.REACT_APP_serverURL}/trending`;
         //using axios 
         // axios.get(serverURL)
         //     .then(response => {
