@@ -17,13 +17,17 @@ function FavMovie(props) {
         setShowFlag(false)
     }
     
-    const deleteMovie = async () => {
-        const serverURL = `http://localhost:3005/DELETE/${id}`
-        const result=await axios.delete(serverURL)
-        console.log("delete",result.data)
-        props.takeNewUpdatedMovies([result.data])
-        handleClose()
-    }
+   const deleteMovie = async () => {
+  const serverURL = `${process.env.REACT_APP_serverURL}/DELETE/${id}`;
+  await axios.delete(serverURL)
+    .then(response => {
+      props.takeNewUpdatedMovies(response.data); // Update state with the response data
+      handleClose();
+    })
+    .catch(error => {
+      console.log(error);
+    });
+};
 
     return (
         <>

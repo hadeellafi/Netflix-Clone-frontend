@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Form, Image } from 'react-bootstrap';
@@ -10,14 +9,11 @@ function UpdateModal(props) {
         event.preventDefault();
         console.log(event.target.comment.value)
         console.log(props.movie.id);
-        const serverURL = `http://localhost:3005/UPDATE/${props.movie.id}`
+        const serverURL = `${process.env.REACT_APP_serverURL}/UPDATE/${props.movie.id}`
         
         const result = await axios.put(serverURL,{comment: event.target.comment.value});
         console.log("done",result.data)
-        
-
-        props.takeNewUpdatedMovies([result.data])
-
+        props.takeNewUpdatedMovies(result.data)
         props.handleClose()
     }
     return (

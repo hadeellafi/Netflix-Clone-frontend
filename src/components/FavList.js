@@ -4,7 +4,7 @@ import FavListMovies from "./FavListMovies";
 function FavList() {
     const [favArr, setFavArr] = useState([])
     const getFavorite = () => {
-        const serverURL = " http://localhost:3005/getMovies"
+        const serverURL = `${process.env.REACT_APP_serverURL}/getMovies`
         fetch(serverURL)
             .then(response => {
                 response.json().then(data => {
