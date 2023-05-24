@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 import UpdateModal from './UpdateModel';
 import axios from 'axios';
 
@@ -16,22 +18,23 @@ function FavMovie(props) {
     const handleClose = () => {
         setShowFlag(false)
     }
-    
-   const deleteMovie = async () => {
-  const serverURL = `${process.env.REACT_APP_serverURL}/DELETE/${id}`;
-  await axios.delete(serverURL)
-    .then(response => {
-      props.takeNewUpdatedMovies(response.data); // Update state with the response data
-      handleClose();
-    })
-    .catch(error => {
-      console.log(error);
-    });
-};
+
+    const deleteMovie = async () => {
+        const serverURL = `${process.env.REACT_APP_serverURL}/DELETE/${id}`;
+        await axios.delete(serverURL)
+            .then(response => {
+                props.takeNewUpdatedMovies(response.data); // Update state with the response data
+                handleClose();
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
 
     return (
         <>
-            <Card style={{ width: '18rem' }} >
+
+            <Card>
                 <Card.Img variant="top" src={posterPathURL + poster_path} />
                 <Card.Body>
                     <Card.Title>{title}</Card.Title>
@@ -41,10 +44,9 @@ function FavMovie(props) {
                         My comment:{comment}
                     </Card.Text>
                     <Button variant="success" onClick={() => { handleShow() }}>Update comment</Button>
-                    <Button variant="danger" onClick={()=>deleteMovie()}>Delete</Button>
+                    <Button variant="danger" onClick={() => deleteMovie()}>Delete</Button>
                 </Card.Body>
             </Card>
-            <UpdateModal showFlag={showFlag} handleClose={handleClose} movie={props.movie} takeNewUpdatedMovies={props.takeNewUpdatedMovies}/>
         </>
     )
 }
